@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flat</title>
+    <!-- <link rel="icon" type="image/png" href="assets/icons/favico.png" /> -->
+    <link rel="stylesheet" href="css/styles.css">
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="MDB/css/bootstrap.min.css">
+    <!-- Material Design Bootstrap -->
+    <link rel="stylesheet" href="MDB/css/mdb.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous">
+        </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <!-- Sweet Alert -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/promise-polyfill"></script> -->
+    <!-- Material Design Bootstrap -->
+    <!-- jQuery -->
+    <script type="text/javascript" src="MDB/js/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
+    <!-- Bootstrap tooltips -->
+    <script type="text/javascript" src="MDB/js/popper.min.js"></script>
+    <!-- Bootstrap core JavaScript -->
+    <script type="text/javascript" src="MDB/js/bootstrap.min.js"></script>
+    <!-- MDB core JavaScript -->
+    <script type="text/javascript" src="MDB/js/mdb.min.js"></script>
+
+    <script src="painterro/painterro-1.0.35.min.js"></script>
+    <script src="js/hotspots/hotspot.js"></script>
+    <script src="js/pictures/picture.js"></script>
+    <script src="js/main.js"></script>
+</head>
+
+<body>
+    <!-- <h2 align='center'><em> . . .>>>ENTER<<<. . . </em><br> PARA FIJAR LA POSICIÓN DEL NUEVO PUNTO</h2> -->
+    <div class="row">
+        <nav class="navbar-primary zindex">
+            <ul id="optionsMenu" class="navbar-primary-menu scrolleable">
+                <li class="menuBtns">
+                    <!-- <a href="#" id="exit" class="separationMenu" title="Salir">
+                        <span class="glyphicon fas fa-chevron-circle-left"></span>
+                        <span class="nav-label">Salir</span>
+                    </a> -->
+                    <a href="#" id="btn_back" onclick="volver();" class="isDisabled" title="Volver">
+                        <span class="glyphicon fas fa-undo"></span>
+                        <span class="nav-label" onclick="location.reload()">Volver</span>
+                    </a>
+                    <hr>
+                    <!--Dropdown primary-->
+                    <div class="dropdown dropright">
+                        <!--Trigger-->
+                        <a class="btn dropdown-toggle" type="button" id="btn_menuFlat" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false">
+                            <span class="glyphicon fas fa-pen"></span>
+                            <span class="nav-label">Editar Plano</span></a>
+                        <!--Menu-->
+                        <div class="dropdown-menu dropdown-primary">
+                            <a class="dropdown-item" id="btn_editPicture" href="#">
+                                <span class="fas fa-sign-in-alt"></span>
+                                <span class="nav-label">ABRIR EDITOR</span>
+                            </a>
+                            <a href="#" id="btn_deleteFlat" class="dropdown-item" title="Eliminar flat">
+                                <span class="glyphicon fas fa-trash"></span>
+                                <span class="nav-label">Eliminar</span>
+                            </a>
+
+                        </div>
+                        <!-- <a href="#" id="btn_editFlat" class="dropdown-toggle" title="Editar Hotspot"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="glyphicon fas fa-pen"></span>
+                            <span class="nav-label">Editar Plano</span>
+                        </a> -->
+                    </div>
+                    <hr>
+                    <a href="#" id="btn_newIcon" title="Nuevo Hotspot" data-toggle="modal"
+                        data-target="#modalQuickView">
+                        <span class="glyphicon fas fa-plus-circle"></span>
+                        <span class="nav-label">Nuevo Punto</span>
+                    </a>
+                    <a href="#" id="btn_moveDraggable" class="" title="Mover Hotspot">
+                        <span class="glyphicon fas fa-arrows-alt"></span>
+                        <span class="nav-label">Mover Punto</span>
+                    </a>
+                    <div class="dropdown dropright">
+                        <a href="#" id="btn_editHotspot" class="dropdown-toggle" title="Editar Hotspot"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="glyphicon fas fa-pen"></span>
+                            <span class="nav-label">Editar Punto</span>
+                        </a>
+                        <div class="dropdown-menu dropdown-ins editSpotDropDown">
+                            <a href="#" id="resizeHotspot" class="dropdown-item" title="Cambiar tamaño de Hotspot"
+                                data-toggle="modal" data-target="#modalQuickView">
+                                <span class="glyphicon fas fa-search-plus"></span>
+                                <span class="nav-label">Tamaño</span>
+                            </a>
+                            <!-- <div class="dropdown-divider"></div> -->
+                            <a href="#" id="changeInfoHotspot" class="dropdown-item"
+                                title="Cambiar Información de Hotspot" data-toggle="modal"
+                                data-target="#modalQuickView">
+                                <span class="glyphicon fas fa-info-circle"></span>
+                                <span class="nav-label">Información</span>
+                            </a>
+                            <!-- <div class="dropdown-divider"></div> -->
+                            <a href="#" id="btn_deleteHotspot" class="dropdown-item" title="Eliminar Hotspot">
+                                <span class="glyphicon fas fa-trash"></span>
+                                <span class="nav-label">Eliminar</span>
+                            </a>
+                        </div>
+                    </div>
+                    <hr>
+                    <a href="#" id="btn_saveHotspot" class="isDisabled" title="Guardar Hotspot"><span
+                            class="glyphicon fas fa-save"></span><span class="nav-label">Guardar</span></a>
+                </li>
+            </ul>
+        </nav>
+
+        <div class="image">
+            <img id="myimage" src="assets/images/flat.jpg">
+            <div class="draggable">
+
+            </div>
+        </div>
+    </div>
+
+
+    <!-- CSS:
+    display: inline; -->
+    <!-- Menu PC -->
+    <!-- <nav class="navbar-primary zindex">
+        <ul id="optionsMenu" class="navbar-primary-menu scrolleable">
+            <li class="menuBtns">
+                <a href="#" id='exitTour' class="separationMenu" title="Salir">
+                    <span class="glyphicon fas fa-chevron-circle-left"></span>
+                    <span class="nav-label">Salir</span>
+                </a>
+                <a href="#" id="volver" onclick="volver();" class="" title="Volver">
+                    <span class="glyphicon fas fa-undo"></span>
+                    <span class="nav-label">Volver</span>
+                </a>
+                <a href="#" id="btn_newIcon" class="" title="Nuevo Hotspot" data-toggle="modal"
+                    data-target="#modalQuickView">
+                    <span class="glyphicon fas fa-plus-circle"></span>
+                    <span class="nav-label">Nuevo Hotspot</span>
+                </a>
+                <a href="#" id="moveHotspots" class="" title="Mover Hotspot" data-toggle="modal"
+                    data-target="#modalQuickView">
+                    <span class="glyphicon fas fa-arrows-alt"></span>
+                    <span class="nav-label">Mover Hotspot</span>
+                </a>
+                <div class="dropdown dropright">
+                    <a href="#" id="editHotspots" class="dropdown-toggle" title="Editar Hotspot" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                        <span class="glyphicon fas fa-pen"></span>
+                        <span class="nav-label">Editar Hotspot</span>
+                    </a>
+                    <div class="dropdown-menu dropdown-ins editSpotDropDown">
+                        <a href="#" id="resizeHotspot" class="dropdown-item" title="Cambiar el tamaño del Hotspot"
+                            data-toggle="modal" data-target="#modalQuickView">
+                            <span class="glyphicon fas fa-search-plus"></span>
+                            <span class="nav-label">Tamaño</span>
+                        </a> -->
+
+    <!-- <div class="dropdown-divider"></div> -->
+
+    <!-- <a href="#" id="changeInfoHotspot" class="dropdown-item"
+                            title="Cambiar la información del Hotspot" data-toggle="modal"
+                            data-target="#modalQuickView">
+                            <span class="glyphicon fas fa-info-circle"></span>
+                            <span class="nav-label">Información</span>
+                        </a> -->
+
+    <!-- <div class="dropdown-divider"></div> -->
+
+    <!-- <a href="#" id="deleteHotspot" class="dropdown-item" title="Eliminar Hotspot"
+                            data-toggle="modal" data-target="#modalQuickView">
+                            <span class="glyphicon fas fa-trash"></span>
+                            <span class="nav-label">Eliminar</span>
+                        </a>
+                    </div>
+                </div>
+                <hr>
+                <a href="#" id="saveHotspots" class=" isDisabled" title="Guardar Hotspot"><span
+                        class="glyphicon fas fa-save"></span><span class="nav-label">Guardar Hotspot</span></a>
+            </li>
+        </ul>
+    </nav> -->
+
+
+    <!-- <div class="img-zoom-container"> -->
+    <!-- <img id="myimage" src="img_girl.jpg" width="300" height="240" alt="Girl"> -->
+
+    <!-- <div id="myresult" class="img-zoom-result"></div> -->
+    <!-- </div>  -->
+
+</body>
+
+</html>
