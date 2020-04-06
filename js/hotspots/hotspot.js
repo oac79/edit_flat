@@ -100,17 +100,19 @@ function updateCounter(selector, value) {
 
 function createHotspot() {
     $('.isDisabled').off('click');
+    
+    $('body').off('mousedown');
     $('#btn_newIcon').click(function () {
         isSaved = true;
         listHospotUpdate = [];
-
         $('#btn_back').removeClass('isDisabled');
-    
+
+        $('#btn_saveHotspot').addClass('isDisabled');
         $('#btn_newIcon').addClass('isDisabled');
         $('#btn_moveDraggable').addClass('isDisabled');
         $('#btn_menuFlat').addClass('isDisabled');
         $('#btn_menuHotspot').addClass('isDisabled');
-   
+
         getMaxValueId().done(function (response) {
             console.log('%c response: ', 'color: green', response);
             if (response != null) {
@@ -121,12 +123,21 @@ function createHotspot() {
                 console.log('numID_: ', numID);
                 console.log('%c value count_ : ', 'color: purple', count);
                 var img = 'img_flat' + numID;
-                $('.draggable').append('<img src="assets/images/extinguisher32.png" class="hotspot" id=' + img + '>');
-                $('#' + img).draggable({
-                    start: onDragStart,
-                    drag: onDrag,
-                    stop: onDragStop
-                });
+                $('body').mousedown(function(){
+                        var x = window.event.clientX;
+                        var y = window.event.clientY;
+                        console.log(x,y);
+                    $('.draggable').append('<img src="assets/images/extinguisher32.png" class="hotspot" id=' + img + '>');
+                    $('#' + img).offset({ left: x, top: y });
+                    $('#' + img).draggable({
+                        start: onDragStart,
+                        drag: onDrag,
+                        stop: onDragStop
+                    });
+                    $('body').off('mousedown');
+                    resetBodyEvent();
+                })
+                
             } else {
                 console.log('no hay datos en BDD');
             }
@@ -136,17 +147,21 @@ function createHotspot() {
         })
 
     })
-    resetBodyEvent();
+   
+   
 }
 
 function resetBodyEvent() {
+    
     $("body").keyup(function (event) {
         console.log('%c click keyCode === 13', 'color: brown');
+        // $('body').off('mousedown');
+
         if (event.keyCode === 13) {
+            $('#img_flat'+numID).draggable('disable');
             $('#btn_newIcon').removeClass('isDisabled');
-            // $('#btn_newIcon').on('click', function(){});
             $('#btn_saveHotspot').removeClass('isDisabled');
-            // $('#btn_saveHotspot').on('click');
+           
             var element = document.getElementById('img_flat' + numID);
             // console.log('%c element_: ', 'color: red', element.id);
             var position = element.getBoundingClientRect();
@@ -159,7 +174,6 @@ function resetBodyEvent() {
             }
             addHotspot.push(hotspot);
             console.log('%c new hotspot_: ', 'color: orange', addHotspot);
-            $('#btn_newIcon').prop('disabled', false);
             console.log('%c position_x: ', 'color: green', position.x, 'position_y: ', position.y);
         }
     });
@@ -173,9 +187,9 @@ function saveHotspot() {
             sendHotspots().done(function (response) {
                 if (response.length === addHotspot.length) {
                     console.log('%c response_: ', 'color: green', response);
-                    setTimeout(function () {
+                    // setTimeout(function () {
                         location.reload();
-                    }, 2000);
+                    // }, 2000);
                 }
             }).fail(function (error) {
                 console.log('%c err_: ', 'color: red', error);
@@ -215,7 +229,7 @@ function moveDraggable() {
         $('#btn_back').removeClass('isDisabled');
         // $('#btn_saveHotspot').prop('disabled', false);
         $('#btn_moveDraggable').addClass('isDisabled');
-        
+
 
         $('#btn_newIcon').addClass('isDisabled');
         $('#btn_newIcon').off('click');
@@ -289,7 +303,7 @@ function showModalResize() {
         '<div class="modal-content">' +
         '<div class="modal-body">' +
         '<a href="#" class="close" id="closeResize" data-dismiss="modal" aria-label="close">&times;</a>' +
-        '<h4 align="center"><font color="black">Cambiar tamaño del icono</font></h4>' +
+        '<h4 align="center"><font color="black">Cambiar Tamaño</font></h4>' +
         '<div id="modalNewBtn" class="row">' +
         '</div>' +
         '<div class="d-flex justify-content-center my-4">' +
@@ -307,21 +321,21 @@ function showModalResize() {
 }
 
 function resizeHotspot() {
-   
+
     $('#btn_resizeHotspot').click(function () {
         isResized = true;
         $('.hotspot-info').off('click');//deshabilitar el click del button para que no nos muestre info
 
         $('#btn_newIcon').addClass('isDisabled');
-       
+
         $('#btn_saveHotspot').removeClass('isDisabled');
         $('#btn_saveHotspot').prop('disabled', false);
-       
+
         $('#btn_moveDraggable').addClass('isDisabled');
-      
+
         $('#btn_resizeHotspot').prop('disabled', true);
         $('#btn_deleteHotspot').prop('disabled', true);
-        
+
         $('.isDisabled').off('click');
 
         let imgID, size, hotspot;
@@ -441,9 +455,10 @@ function deleteHotspot() {
 
 function changeTheBtnText() {
     var btn = document.getElementById('btn_saveHotspot');
+    console.log('btn', btn);
     value ? btn.innerText = "GUARDAR PUNTO" : btn.innerText = "ELIMINAR";
     value = !value;
-   
+
 }
 
 function showInfoHotspot() {

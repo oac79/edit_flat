@@ -1,5 +1,5 @@
 
-function sendEditedPicture(picture) {
+function sendCreatedPicture(picture) {
     return $.ajax({
         url: "php/main/main_picture.php",
         type: "POST",
@@ -69,7 +69,7 @@ function showPictureByID(picture) {
 
 //FUNCTION EN LA QUE EDITAMOS UNA IMAGEN LLAMANDO A UNA FUNCIÓN INTERNA saveHandler DEL PLUGIN PAINTERRO
 //LA IMAGEN EDITADA SE GUARDA EN LA BDD
-function saveEditedPicture(linkPicture) {
+function saveCreatedPicture(linkPicture) {
     Painterro({
         language: 'es',
         onClose: function () {
@@ -82,7 +82,7 @@ function saveEditedPicture(linkPicture) {
                 'function_post': 'savePicture'
             }
             console.log('%c picture_: ', 'color: purple', picture);
-            sendEditedPicture(picture).done(function (response) {
+            sendCreatedPicture(picture).done(function (response) {
                 if (response === true) {
                     console.log('%c response_: ', 'color: green', response);
                     setTimeout(function () {
@@ -135,11 +135,13 @@ function updatePicture(picture) {
 }
 
 //Posiblemente le pasaremos como parámetro la imagen que deseamos editar
-function editPicture(){
-    $('#btn_editPicture').click(function () {
+function createPicture(){
+    $('#btn_createPicture').click(function () {
+        $('#btn_createPicture').addClass('isDisabled');
         $('#btn_editPicture').addClass('isDisabled');
         $('#btn_deleteFlat').addClass('isDisabled');
         $('#btn_menuHotspot').addClass('isDisabled');
+        $('#btn_menuHotspot').attr("data-toggle", "");
         $('#btn_moveDraggable').addClass('isDisabled');
         $('#btn_moveDraggable').off('click');
         $('#btn_newIcon').addClass('isDisabled');
@@ -147,9 +149,10 @@ function editPicture(){
         $('#btn_back').removeClass('isDisabled');
         $('.hotspot').toggle();
         $('.isDisabled').off('click');
-        // var linkPicture = 'assets/images/flat.jpg';
-        var linkPicture = 'assets/images/lion.png';
+        var linkPicture = 'assets/images/flat.jpg';
+        // var linkPicture = '';
+        // var linkPicture = 'assets/images/lion.png';
 
-        saveEditedPicture(linkPicture);
+        saveCreatedPicture(linkPicture);
     });
 }
