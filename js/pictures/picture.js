@@ -71,6 +71,10 @@ function showPictureByID(picture) {
 //LA IMAGEN EDITADA SE GUARDA EN LA BDD
 function saveEditedPicture(linkPicture) {
     Painterro({
+        language: 'es',
+        onClose: function () {
+            location.href="index.html";
+        }, 
         saveHandler: function (image) {
             var picture = {
                 'img_base64': image.asDataURL(),
@@ -130,3 +134,22 @@ function updatePicture(picture) {
 
 }
 
+//Posiblemente le pasaremos como parámetro la imagen que deseamos editar
+function editPicture(){
+    $('#btn_editPicture').click(function () {
+        $('#btn_editPicture').addClass('isDisabled');
+        $('#btn_deleteFlat').addClass('isDisabled');
+        $('#btn_menuHotspot').addClass('isDisabled');
+        $('#btn_moveDraggable').addClass('isDisabled');
+        $('#btn_moveDraggable').off('click');
+        $('#btn_newIcon').addClass('isDisabled');
+        $('#btn_newIcon').off('click');
+        $('#btn_back').removeClass('isDisabled');
+        $('.hotspot').toggle();
+        $('.isDisabled').off('click');
+        // var linkPicture = 'assets/images/flat.jpg';
+        var linkPicture = 'assets/images/lion.png';
+
+        saveEditedPicture(linkPicture);
+    });
+}

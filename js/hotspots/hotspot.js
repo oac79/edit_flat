@@ -99,22 +99,18 @@ function updateCounter(selector, value) {
 }
 
 function createHotspot() {
-    $('#btn_newIcon').off('click');
+    $('.isDisabled').off('click');
     $('#btn_newIcon').click(function () {
         isSaved = true;
         listHospotUpdate = [];
-        // $('#btn_saveHotspot').off('click');
-        // $('#btn_newIcon').prop('disabled', true);
+
+        $('#btn_back').removeClass('isDisabled');
+    
         $('#btn_newIcon').addClass('isDisabled');
-        
-        // $('#btn_moveDraggable').prop('disabled', true);
         $('#btn_moveDraggable').addClass('isDisabled');
-        $('#btn_moveDraggable').off('click');
-        $('#btn_editHotspot').addClass('isDisabled');
-        $('#btn_editHotspot').off('click');
-        // $('#btn_resizeHotspot').prop('disabled', true);
-        // $('#btn_saveHotspot').prop('disabled', true);
-        // $('#btn_deleteHotspot').prop('disabled', true);
+        $('#btn_menuFlat').addClass('isDisabled');
+        $('#btn_menuHotspot').addClass('isDisabled');
+   
         getMaxValueId().done(function (response) {
             console.log('%c response: ', 'color: green', response);
             if (response != null) {
@@ -148,9 +144,9 @@ function resetBodyEvent() {
         console.log('%c click keyCode === 13', 'color: brown');
         if (event.keyCode === 13) {
             $('#btn_newIcon').removeClass('isDisabled');
-            $('#btn_newIcon').on('click', function(){});
+            // $('#btn_newIcon').on('click', function(){});
             $('#btn_saveHotspot').removeClass('isDisabled');
-            $('#btn_saveHotspot').on('click');
+            // $('#btn_saveHotspot').on('click');
             var element = document.getElementById('img_flat' + numID);
             // console.log('%c element_: ', 'color: red', element.id);
             var position = element.getBoundingClientRect();
@@ -216,19 +212,20 @@ function moveDraggable() {
     $('#btn_moveDraggable').click(function () {
         isDraggable = true;
         console.log('click moveDraggable');
+        $('#btn_back').removeClass('isDisabled');
         // $('#btn_saveHotspot').prop('disabled', false);
         $('#btn_moveDraggable').addClass('isDisabled');
-        $('#btn_moveDraggable').off('click');
+        
 
         $('#btn_newIcon').addClass('isDisabled');
         $('#btn_newIcon').off('click');
 
         /****************not found click off***************/
-        // $('#btn_editHotspot').addClass('isDisabled');
-        // $('#btn_editHotspot').off('click');
-
+        $('#btn_menuHotspot').addClass('isDisabled');
+        $('#btn_menuFlat').addClass('isDisabled')
         $('#btn_saveHotspot').removeClass('isDisabled');
 
+        $('.isDisabled').off('click');
         // $('#btn_moveDraggable').prop('disabled', true);
         // $('#btn_resizeHotspot').prop('disabled', true);
         // $('#btn_deleteHotspot').prop('disabled', true);
@@ -292,7 +289,7 @@ function showModalResize() {
         '<div class="modal-content">' +
         '<div class="modal-body">' +
         '<a href="#" class="close" id="closeResize" data-dismiss="modal" aria-label="close">&times;</a>' +
-        '<h4 align="center"><font color="black">Resize Hotspot</font></h4>' +
+        '<h4 align="center"><font color="black">Cambiar tamaño del icono</font></h4>' +
         '<div id="modalNewBtn" class="row">' +
         '</div>' +
         '<div class="d-flex justify-content-center my-4">' +
@@ -310,14 +307,22 @@ function showModalResize() {
 }
 
 function resizeHotspot() {
+   
     $('#btn_resizeHotspot').click(function () {
         isResized = true;
         $('.hotspot-info').off('click');//deshabilitar el click del button para que no nos muestre info
+
+        $('#btn_newIcon').addClass('isDisabled');
+       
+        $('#btn_saveHotspot').removeClass('isDisabled');
         $('#btn_saveHotspot').prop('disabled', false);
-        $('#btn_newIcon').prop('disabled', true);
-        $('#btn_moveDraggable').prop('disabled', true);
+       
+        $('#btn_moveDraggable').addClass('isDisabled');
+      
         $('#btn_resizeHotspot').prop('disabled', true);
         $('#btn_deleteHotspot').prop('disabled', true);
+        
+        $('.isDisabled').off('click');
 
         let imgID, size, hotspot;
         $('.hotspot').click(function () {
@@ -445,7 +450,10 @@ function showInfoHotspot() {
     console.log('showInfoHotspot');
     $('.hotspot').addClass('hotspot-info');
     $('.hotspot-info').click(function () {
-        console.log('click punto!!!!');
-        alert('MODAL EN CONSTRUCCIÓN!!!!');
+        let imgID = $(this).attr('id');
+        console.log('click punto!!!!', imgID);
+        $('.modalSpotTitle').text('PDF PRL');
+        $('<iframe id="myframe" class="embed-responsive-item" src="https://www.diba.cat/documents/467843/48867524/CROEM_Guia_NT_Prevencion.pdf/b0e08073-7614-4589-bae1-8b3ac26beeb2" height="700px" width="100%" allowfullscreen></iframe>').appendTo('.modalSpotBody');
+        $('#modalSpot').modal();
     });
 }

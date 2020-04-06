@@ -24,7 +24,7 @@ div.row{
 
 .hotspot{
   position: absolute;
-  z-index: 9999;
+  z-index: 10;
 
   /* display: none; */
 } 
@@ -32,6 +32,10 @@ div.row{
 .opClass {
   opacity:0.6;
   filter:alpha(opacity=60); /* For IE8 and earlier */
+}
+
+#btn_back {
+  background-color: #dc3545;
 }
 
 /****************************************PLUGIN PAINTERRO****************************************/
