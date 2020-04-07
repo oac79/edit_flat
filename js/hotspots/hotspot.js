@@ -100,7 +100,6 @@ function updateCounter(selector, value) {
 
 function createHotspot() {
     $('.isDisabled').off('click');
-    
     $('body').off('mousedown');
     $('#btn_newIcon').click(function () {
         isSaved = true;
@@ -123,10 +122,10 @@ function createHotspot() {
                 console.log('numID_: ', numID);
                 console.log('%c value count_ : ', 'color: purple', count);
                 var img = 'img_flat' + numID;
-                $('body').mousedown(function(){
-                        var x = window.event.clientX;
-                        var y = window.event.clientY;
-                        console.log(x,y);
+                $('body').mousedown(function () {
+                    var x = window.event.clientX;
+                    var y = window.event.clientY;
+                    console.log(x, y);
                     $('.draggable').append('<img src="assets/images/extinguisher32.png" class="hotspot" id=' + img + '>');
                     $('#' + img).offset({ left: x, top: y });
                     $('#' + img).draggable({
@@ -137,7 +136,7 @@ function createHotspot() {
                     $('body').off('mousedown');
                     resetBodyEvent();
                 })
-                
+
             } else {
                 console.log('no hay datos en BDD');
             }
@@ -147,21 +146,21 @@ function createHotspot() {
         })
 
     })
-   
-   
+
+
 }
 
 function resetBodyEvent() {
-    
+
     $("body").keyup(function (event) {
         console.log('%c click keyCode === 13', 'color: brown');
         // $('body').off('mousedown');
 
         if (event.keyCode === 13) {
-            $('#img_flat'+numID).draggable('disable');
+            $('#img_flat' + numID).draggable('disable');
             $('#btn_newIcon').removeClass('isDisabled');
             $('#btn_saveHotspot').removeClass('isDisabled');
-           
+
             var element = document.getElementById('img_flat' + numID);
             // console.log('%c element_: ', 'color: red', element.id);
             var position = element.getBoundingClientRect();
@@ -172,6 +171,8 @@ function resetBodyEvent() {
                 coordinate_y: position.y,
                 function_post: 'saveHotspot'
             }
+            $("body").off("keyup");//quita el evento al pulsar enter 
+            // $("body").unbind(); >>>>DEPRECATED<<<<<
             addHotspot.push(hotspot);
             console.log('%c new hotspot_: ', 'color: orange', addHotspot);
             console.log('%c position_x: ', 'color: green', position.x, 'position_y: ', position.y);
@@ -188,7 +189,7 @@ function saveHotspot() {
                 if (response.length === addHotspot.length) {
                     console.log('%c response_: ', 'color: green', response);
                     // setTimeout(function () {
-                        location.reload();
+                    location.reload();
                     // }, 2000);
                 }
             }).fail(function (error) {
@@ -225,7 +226,11 @@ function showHotspot() {
 function moveDraggable() {
     $('#btn_moveDraggable').click(function () {
         isDraggable = true;
-        console.log('click moveDraggable');
+
+        $('#btn_menuFlat').addClass('isDisabled');
+        $('#btn_menuFlat').attr('data-toggle', '');
+        $('#btn_menuHotspot').attr('data-toggle', '');
+
         $('#btn_back').removeClass('isDisabled');
         // $('#btn_saveHotspot').prop('disabled', false);
         $('#btn_moveDraggable').addClass('isDisabled');
@@ -417,7 +422,7 @@ function removeSelectedHotspot() {
         $('#btn_moveDraggable').prop('disabled', true);
         $('#btn_resizeHotspot').prop('disabled', true);
         $('#btn_deleteHotspot').prop('disabled', true);
-        changeTheBtnText();
+        changeTheBtnText();//function que cambia el texto del button guardar
         $('.hotspot').click(function () {
             console.log('click hotspot_:');
             imgID = $(this).attr('id');

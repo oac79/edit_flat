@@ -87,7 +87,7 @@ function saveCreatedPicture(linkPicture) {
                     console.log('%c response_: ', 'color: green', response);
                     setTimeout(function () {
                         location.reload();
-                    }, 2000);
+                    }, 500);
                 }
             }).fail(function (err) {
                 console.log('%c err_: ', 'color: orange', err);
@@ -134,7 +134,6 @@ function updatePicture(picture) {
 
 }
 
-//Posiblemente le pasaremos como parámetro la imagen que deseamos editar
 function createPicture(){
     $('#btn_createPicture').click(function () {
         $('#btn_createPicture').addClass('isDisabled');
@@ -154,5 +153,51 @@ function createPicture(){
         // var linkPicture = 'assets/images/lion.png';
 
         saveCreatedPicture(linkPicture);
+    });
+}
+
+//Posiblemente le pasaremos como parámetro la imagen que deseamos editar
+function editPicture(){
+    $('#btn_editPicture').click(function () {
+        $('#btn_createPicture').addClass('isDisabled');
+        $('#btn_saveHotspot').addClass('isDisabled');
+        $('#btn_editPicture').addClass('isDisabled');
+        $('#btn_deleteFlat').addClass('isDisabled');
+        $('#btn_menuHotspot').addClass('isDisabled');
+        $('#btn_menuHotspot').attr("data-toggle", "");
+        $('#btn_moveDraggable').addClass('isDisabled');
+        $('#btn_moveDraggable').off('click');
+        $('#btn_newIcon').addClass('isDisabled');
+        $('#btn_newIcon').off('click');
+        $('#btn_back').removeClass('isDisabled');
+        $('.hotspot').toggle();
+        $('.isDisabled').off('click');
+        var picture = {
+            'id': 53
+        }
+        picture.function_get = 'getPicture';
+        updatePicture(picture);
+    });
+}
+
+//mostrar una imagen por id
+function showPicture(id){
+    $('#btn_showPicture').click(function () {
+        var picture = {
+            'id': id
+        }
+        picture.function_get = 'getPicture';
+        showPictureByID(picture);
+    });
+}
+
+function removePicture(){
+    //seleccionar la imagen que se desea eliminar, función en construcción
+    $('#btn_removePicture').click(function () {
+        var picture = {
+            'id': 57
+        }
+        picture.function_post = 'removePicture';
+        removePictureByID(picture);
     });
 }

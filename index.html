@@ -62,25 +62,19 @@
                             <span class="nav-label">Plano</span></a>
                         <!--Menu-->
                         <div class="dropdown-menu dropdown-primary">
-                            <a class="dropdown-item" id="btn_createPicture" href="#">
-                                <span class="fas fa-sign-in-alt"></span>
-                                <span class="nav-label">CREAR PLANO</span>
+                            <a href="#" id="btn_createPicture" class="dropdown-item" title="Nuevo Plano">
+                                <span class="glyphicon fas fa-plus-circle"></span>
+                                <span class="nav-label">NUEVO</span>
                             </a>
-                            <a href="#" id="btn_editPicture" class="dropdown-item" title="Eliminar Plano">
+                            <a href="#" id="btn_editPicture" class="dropdown-item" title="Editar Plano">
                                 <span class="glyphicon fas fa-pen"></span>
-                                <span class="nav-label">EDITAR PLANO</span>
+                                <span class="nav-label">EDITAR</span>
                             </a>
                             <a href="#" id="btn_deleteFlat" class="dropdown-item" title="Eliminar Plano">
                                 <span class="glyphicon fas fa-trash"></span>
                                 <span class="nav-label">Eliminar</span>
                             </a>
-
                         </div>
-                        <!-- <a href="#" id="btn_editFlat" class="dropdown-toggle" title="Editar Hotspot"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <span class="glyphicon fas fa-pen"></span>
-                            <span class="nav-label">Editar Plano</span>
-                        </a> -->
                     </div>
                     <hr>
                     <a href="#" id="btn_newIcon" title="Nuevo Punto" data-toggle="modal" data-target="#modalQuickView">
@@ -103,14 +97,6 @@
                                 <span class="glyphicon fas fa-search-plus"></span>
                                 <span class="nav-label">Tamaño</span>
                             </a>
-                            <!-- <div class="dropdown-divider"></div> -->
-                            <!-- <a href="#" id="changeInfoHotspot" class="dropdown-item"
-                                title="Cambiar Información de Hotspot" data-toggle="modal"
-                                data-target="#modalQuickView">
-                                <span class="glyphicon fas fa-info-circle"></span>
-                                <span class="nav-label">Información</span>
-                            </a> -->
-                            <!-- <div class="dropdown-divider"></div> -->
                             <a href="#" id="btn_deleteHotspot" class="dropdown-item" title="Eliminar Punto">
                                 <span class="glyphicon fas fa-trash"></span>
                                 <span class="nav-label">Eliminar</span>
@@ -135,7 +121,8 @@
     </div>
 
     <!--Modal: modalSpot-->
-    <div class="modal fade" id="modalSpot" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal fade" id="modalSpot" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog cascading-modal mt-5" role="document">
 
             <!--Content-->
@@ -145,7 +132,7 @@
                 <div class="modal-header light-blue darken-3 white-text">
                     <h4 class="title modalSpotTitle"></h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-              aria-hidden="true">&times;</span></button>
+                            aria-hidden="true">&times;</span></button>
                 </div>
 
                 <!--Body-->
