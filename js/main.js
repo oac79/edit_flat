@@ -20,7 +20,6 @@ $(document).ready(function () {
     resizeHotspot();
     updateSized();
     removeSelectedHotspot();
-    deleteHotspot();
     /******************************************************************* */
     console.log('%c ___Document Ready___', 'color: green');
     /***********************************PICTURES************************ */

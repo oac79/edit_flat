@@ -110,8 +110,7 @@ function createHotspot() {
         $('#btn_newIcon').addClass('isDisabled');
         $('#btn_moveDraggable').addClass('isDisabled');
         $('#btn_menuFlat').addClass('isDisabled');
-        $('#btn_menuHotspot').addClass('isDisabled');
-
+        $('#btn_menuHotspot').addClass('isDisabled')
         getMaxValueId().done(function (response) {
             console.log('%c response: ', 'color: green', response);
             if (response != null) {
@@ -245,9 +244,6 @@ function moveDraggable() {
         $('#btn_saveHotspot').removeClass('isDisabled');
 
         $('.isDisabled').off('click');
-        // $('#btn_moveDraggable').prop('disabled', true);
-        // $('#btn_resizeHotspot').prop('disabled', true);
-        // $('#btn_deleteHotspot').prop('disabled', true);
         for (var i = 0; i < listHotspots.length; i++) {
             $('#' + listHotspots[i].name).off('click');
             $('#' + listHotspots[i].name + '').draggable({
@@ -330,16 +326,19 @@ function resizeHotspot() {
     $('#btn_resizeHotspot').click(function () {
         isResized = true;
         $('.hotspot-info').off('click');//deshabilitar el click del button para que no nos muestre info
+        $('#btn_saveHotspot').removeClass('isDisabled');
+        $('#btn_back').removeClass('isDisabled');
 
         $('#btn_newIcon').addClass('isDisabled');
-
-        $('#btn_saveHotspot').removeClass('isDisabled');
-        $('#btn_saveHotspot').prop('disabled', false);
-
         $('#btn_moveDraggable').addClass('isDisabled');
+        $('#btn_resizeHotspot').addClass('isDisabled');
+        $('#btn_deleteHotspot').addClass('isDisabled');
+        $('#btn_menuFlat').addClass('isDisabled');
+        $('#btn_menuFlat').attr('data-toggle','');
+       
 
         $('#btn_resizeHotspot').prop('disabled', true);
-        $('#btn_deleteHotspot').prop('disabled', true);
+
 
         $('.isDisabled').off('click');
 
@@ -363,15 +362,9 @@ function resizeHotspot() {
                 }
                 // console.log('%c hotspot.name_: ', 'color: blue', hotspot.name, imgID);
                 if (isOnTheUpdateList(imgID, listHotspotSize)) {
-                    // console.log('%c ha entrado en el if_ isOnTheList', 'color: orange');
                     let position = listHotspotSize.map(function (e) { return e.name }).indexOf(imgID);
-                    // console.log('before', listHotspotSize[position].size);
                     listHotspotSize[position].size = size;
-                    // console.log('after', listHotspotSize[position].size);
-                    // console.log('position_: ', position);
                 } else {
-                    // console.log('%c ha entrado en el else isOnTheList', 'color: purple');
-                    // console.log('isOnTheList==false');
                     listHotspotSize.push(hotspot);
                 }
             });
@@ -417,12 +410,21 @@ function removeSelectedHotspot() {
         isDeleted = true;
         let hotspot, imgID;
         $('.hotspot-info').off('click');//deshabilitar el click del button para que no nos muestre info
-        $('#btn_saveHotspot').prop('disabled', false);
-        $('#btn_newIcon').prop('disabled', true);
-        $('#btn_moveDraggable').prop('disabled', true);
-        $('#btn_resizeHotspot').prop('disabled', true);
-        $('#btn_deleteHotspot').prop('disabled', true);
-        changeTheBtnText();//function que cambia el texto del button guardar
+        $('#btn_saveHotspot').removeClass('isDisabled');
+        $('#btn_back').removeClass('isDisabled');
+        $('#btn_newIcon').addClass('isDisabled');
+        $('#btn_moveDraggable').addClass('isDisabled');
+        $('#btn_resizeHotspot').addClass('isDisabled');
+        $('#btn_deleteHotspot').addClass('isDisabled');
+        $('#btn_menuFlat').addClass('isDisabled');
+        $('#btn_menuFlat').attr('data-toggle', '');
+
+        $('#btn_newIcon').off('click');
+        $('#btn_moveDraggable').off('click');
+        $('#btn_resizeHotspot').off('click');
+        $('#btn_deleteHotspot').off('click');
+
+        changeTheBtnText();//function que cambia el texto e icon del button guardar
         $('.hotspot').click(function () {
             console.log('click hotspot_:');
             imgID = $(this).attr('id');
@@ -443,6 +445,7 @@ function removeSelectedHotspot() {
 
         })
     })
+    deleteHotspot();
 }
 
 function deleteHotspot() {
@@ -454,16 +457,18 @@ function deleteHotspot() {
             }).fail(function (err) {
                 console.log('err_: ', err);
             })
-        }
+         } 
     })
 }
 
 function changeTheBtnText() {
     var btn = document.getElementById('btn_saveHotspot');
     console.log('btn', btn);
-    value ? btn.innerText = "GUARDAR PUNTO" : btn.innerText = "ELIMINAR";
-    value = !value;
 
+    value ? btn.innerText = 'GUARDAR PUNTO' : btn.innerHTML = '<span class="glyphicon fas fa-trash"></span> <span class="nav-label">Eliminar</span>', btn.title = 'Eliminar punto';
+    value = !value;
+    $('#btn_saveHotspot').css('background-color', '#dc3545');
+    $('#btn_back').css('background-color', '#24495c');
 }
 
 function showInfoHotspot() {
@@ -473,7 +478,8 @@ function showInfoHotspot() {
         let imgID = $(this).attr('id');
         console.log('click punto!!!!', imgID);
         $('.modalSpotTitle').text('PDF PRL');
-        $('<iframe id="myframe" class="embed-responsive-item" src="https://www.diba.cat/documents/467843/48867524/CROEM_Guia_NT_Prevencion.pdf/b0e08073-7614-4589-bae1-8b3ac26beeb2" height="700px" width="100%" allowfullscreen></iframe>').appendTo('.modalSpotBody');
+        $('<iframe id="myframe" class="embed-responsive-item" src="https://www.diba.cat/documents/467843/48867524/CROEM_Guia_NT_Prevencion.pdf/b0e08073-7614-4589-bae1-8b3ac26beeb2" height="900px" width="100%" allowfullscreen></iframe>').appendTo('.modalSpotBody');
         $('#modalSpot').modal();
     });
 }
+
